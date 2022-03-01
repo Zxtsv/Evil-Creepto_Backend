@@ -23,7 +23,7 @@ public class LoginController {
 	@PostMapping
 	public String Login (@RequestBody Usuarios usuarios) {
 		String res ="El email o la contraseña no coincide, inténtelo de nuevo";
-		if(usuariosService.login(usuarios.getEmail(), usuarios.getPassword())) {
+		if(usuariosService.login(usuarios.getEmail(), usuarios.getContrasena())) {
 			res = "ok";
 		}//if
 		return res;

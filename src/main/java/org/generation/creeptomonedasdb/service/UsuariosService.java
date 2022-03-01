@@ -16,11 +16,11 @@ public class UsuariosService {
 		this.usuariosRepository = usuariosRepository;
 	}//constructor
 	
-	public boolean login (String email, String password) {
+	public boolean login (String email, String contrasena) {
 		boolean res = false;
 		Optional<Usuarios>usuarios = usuariosRepository.findByEmail(email);
 		if(usuarios.isPresent()) {
-			if (usuarios.get().getPassword().equals(password)) {
+			if (usuarios.get().getContrasena().equals(contrasena)) {
 				res = true;
 			}
 		}//if
