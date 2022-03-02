@@ -1,12 +1,19 @@
 package org.generation.creeptomonedasdb.controller;
 
+import java.util.List;
+
 import org.generation.creeptomonedasdb.models.Publicacion;
 import org.generation.creeptomonedasdb.service.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -21,13 +28,33 @@ public class PublicacionController {
         this.publicacionService = publicacionService;
     }
 
-    @PostMapping
-    public String Buscador(@RequestBody Publicacion publicacion){
-        String resultado = "La publicación no existe";
-        if(publicacionService.buscador(publicacion.getPregunta_titulo())){
-            resultado = "Publicación encontrado";
-        }
-        return resultado;
+    @GetMapping
+    public List<Publicacion> getPublicaciones(){
+        return publicacionService.getPublicaciones();
     }
-    
+
+    @GetMapping(path="{pubId}")
+    public Publicacion getPublicacion(@PathVariable("pubId") Long pubId){
+        return publicacionService.getPublicacion(pubId);
+    }
+
+    @DeleteMapping(path = "{pubId}")
+    public void deletePublicacion(@PathVariable("pubId") Long pubId){
+        publicacionService.deletePublicacion(pubId);
+    }
+
+    @PostMapping
+    public void addPublicacion(@RequestBody Publicacion pub){
+        publicacionService.addPublicacion(pub);
+    }
+
+    /*
+    @PutMapping(path = "{pubId}")
+    public void updatePublicacion(@PathVariable("pubId") Long pubId,
+    @RequestParam(required = false) String titulo,
+    @RequestParam(required = false) String cuerpo,
+    @RequestParam(required = false) Long categoryID){
+        publicacionService.updatePublicacion(pubId, titulo, cuerpo,categoryID);
+    }
+    */
 }

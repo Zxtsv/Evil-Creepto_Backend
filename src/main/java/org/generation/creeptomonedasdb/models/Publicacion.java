@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Publicacion {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_pregunta",unique = true, nullable = false)
     private Long id_pregunta;
     private Long id_categoria;
