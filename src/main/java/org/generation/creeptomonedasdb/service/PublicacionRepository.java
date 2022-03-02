@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface PublicacionRepository extends JpaRepository<Publicacion, Long> {
-    @Query("SELECT u FROM Publicacion u WHERE u.pregunta_titulo=?1")
+    @Query("SELECT u FROM Publicacion u WHERE u.id_pregunta=?1")
     Optional<Publicacion> findByPublicacion (String publicacion);
 }

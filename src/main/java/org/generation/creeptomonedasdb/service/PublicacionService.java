@@ -1,6 +1,5 @@
 package org.generation.creeptomonedasdb.service;
 
-import java.util.Optional;
 import java.util.List;
 
 import org.generation.creeptomonedasdb.models.Publicacion;
@@ -14,18 +13,6 @@ public class PublicacionService {
     public PublicacionService(PublicacionRepository publicacionRepository){
         super();
         this.publicacionRepository = publicacionRepository;
-    }
-
-    public boolean buscador(String titulo){
-        boolean resultado = false;
-
-        Optional<Publicacion> publicaciones = publicacionRepository.findByPublicacion(titulo);
-
-        if(publicaciones.isPresent()){
-            return resultado=true;
-        }
-
-        return resultado;
     }
 
     public List<Publicacion> getPublicaciones(){
