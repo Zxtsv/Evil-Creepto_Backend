@@ -8,23 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="comments")
+@Table(name="comentario")
 public class Comentarios {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique=true, nullable=false)
-	private Long idtemp;
-	private String usernametemp;
-	private String profilePictemp;
+	@Column(name = "id_comentario", unique=true, nullable=false)
+	private Long id_comentario;
 	private String texto;
+	private String texto_premium;
 	
 	//constructor
-	public Comentarios(Long idtemp, String usernametemp, String profilePictemp, String texto) {
+	public Comentarios(Long id_comentario, String texto, String texto_premium) {
 		super();
-		this.idtemp = idtemp;
-		this.usernametemp = usernametemp;
-		this.profilePictemp = profilePictemp;
+		this.id_comentario = id_comentario;
 		this.texto = texto;
+		this.texto_premium = texto_premium;
 	}
 	
 	public Comentarios() {
@@ -32,28 +30,12 @@ public class Comentarios {
 	}//constructor vacio
 
 	//getters y setters
-	public Long getIdtemp() {
-		return idtemp;
+	public Long getId_comentario() {
+		return id_comentario;
 	}
 
-	public void setIdtemp(Long idtemp) {
-		this.idtemp = idtemp;
-	}
-
-	public String getUsernametemp() {
-		return usernametemp;
-	}
-
-	public void setUsernametemp(String usernametemp) {
-		this.usernametemp = usernametemp;
-	}
-
-	public String getProfilePictemp() {
-		return profilePictemp;
-	}
-
-	public void setProfilePictemp(String profilePictemp) {
-		this.profilePictemp = profilePictemp;
+	public void setId_comentario(Long id_comentario) {
+		this.id_comentario = id_comentario;
 	}
 
 	public String getTexto() {
@@ -64,11 +46,18 @@ public class Comentarios {
 		this.texto = texto;
 	}
 
-	//tostring
+	public String getTexto_premium() {
+		return texto_premium;
+	}
+
+	public void setTexto_premium(String texto_premium) {
+		this.texto_premium = texto_premium;
+	}
+
 	@Override
 	public String toString() {
-		return "Comentarios [idtemp=" + idtemp + ", usernametemp=" + usernametemp + ", profilePictemp=" + profilePictemp
-				+ ", texto=" + texto + "]";
-	}
+		return "Comentarios [id_comentario=" + id_comentario + ", texto=" + texto + ", texto_premium=" + texto_premium
+				+ "]";
+	}//toString
 	
 }
