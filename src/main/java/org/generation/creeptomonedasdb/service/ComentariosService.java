@@ -1,4 +1,4 @@
-package org.generation.creeptomonedasdb.services;
+package org.generation.creeptomonedasdb.service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package org.generation.creeptomonedasdb.controllers;
+package org.generation.creeptomonedasdb.controller;
 
 import org.generation.creeptomonedasdb.models.Comentarios;
-import org.generation.creeptomonedasdb.services.ComentariosService;
+import org.generation.creeptomonedasdb.service.ComentariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
