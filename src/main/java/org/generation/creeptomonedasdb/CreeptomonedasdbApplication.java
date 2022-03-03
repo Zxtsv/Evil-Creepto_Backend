@@ -14,13 +14,13 @@ public class CreeptomonedasdbApplication {
 	}//main
 
 	
-//	@Bean
-//	public FilterRegistrationBean<JwtFilter> jwtFilter() {
-//		FilterRegistrationBean<JwtFilter> registrationBean =
-//				new FilterRegistrationBean<>();
-//		registrationBean.setFilter( new JwtFilter());
-//		registrationBean.addUrlPatterns("/api/usuarios/*");
-//		//registrationBean.addUrlPatterns("/api/productos/");
-//		return registrationBean;
-//	} // jwtFilter
+	@Bean
+	public FilterRegistrationBean<JwtFilter> jwtFilter() {
+		FilterRegistrationBean<JwtFilter> registrationBean =
+				new FilterRegistrationBean<>();
+		registrationBean.setFilter( new JwtFilter());
+		//registrationBean.addUrlPatterns("/api/usuarios/*");
+		//registrationBean.addUrlPatterns("/api/productos/");
+		return registrationBean;
+	} // jwtFilter
 }//class

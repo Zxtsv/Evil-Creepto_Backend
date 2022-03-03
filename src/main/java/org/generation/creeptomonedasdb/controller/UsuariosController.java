@@ -37,7 +37,6 @@ public class UsuariosController {
 		return usuariosService.getUsuario(idUsuario);
 	}//getUsuario
 	
-<<<<<<< HEAD
 	@DeleteMapping(path= "{idUsuario}")
 	public void borrarUsuario (@PathVariable("idUsuario")Long idUsuario) {
 		usuariosService.borrarUsuario(idUsuario);
@@ -45,34 +44,14 @@ public class UsuariosController {
 	
 	@PutMapping(path = "{idUsuario}")
 	public void actualizarUsuario(@PathVariable("idUsuario") Long idUsuario, 
-=======
-	@DeleteMapping(path = "{idUsuario}")
-	public void deleteUsuario(@PathVariable("idUsuario")Long idUsuario) {
-		usuariosService.deleteUsuario(idUsuario);
-	}//delete
-	
-	@PostMapping
-    public void agregarUsuario(@RequestBody Usuarios usuarios) {
-        usuariosService.addUsuario(usuarios);
-    }//agregarUsuario
-	
-	@PutMapping(path = "{idUsuario}")
-	public void updateUsuario(@PathVariable("idUsuario") Long idUsuario, 
->>>>>>> 9b9206801b3e91949a78225aeb9e9f9412788ec8
 			@RequestParam String contrasenaActual, 
 			@RequestParam String contrasenaNueva) {
 		usuariosService.actualizarUsuario(idUsuario, contrasenaActual, contrasenaNueva);
-		
-	}//UpdateUsuario
+	}//actualizarUsuario
 	
 	@PostMapping
     public void addUsuario(@RequestBody Usuarios usuarios) {
         usuariosService.addUsuario(usuarios);
     }//agregarUsuario
-	
-	
-	
-
-	
 	
 }// class UsuariosConroller

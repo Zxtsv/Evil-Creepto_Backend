@@ -16,6 +16,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 
+
+
 public class JwtFilter extends GenericFilterBean{
 
 	public static String secret ="CH7-perritos-y-gatitos-97-con-chilaquiles-verdes";

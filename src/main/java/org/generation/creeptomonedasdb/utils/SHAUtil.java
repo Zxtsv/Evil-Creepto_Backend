@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SHAUtil {
-	public static String salt="MAGDGEAAYEB#ch7";
+	public static String salt="CREEP2MONEDAS#ch7";
 	public static String createHash(String value) {
 		String res = value+salt;
 		try {

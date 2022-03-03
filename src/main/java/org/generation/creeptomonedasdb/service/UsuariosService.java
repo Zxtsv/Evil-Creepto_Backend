@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.creeptomonedasdb.models.Usuarios;
+import org.generation.creeptomonedasdb.utils.SHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ public class UsuariosService {
 		boolean res = false;
 		Optional<Usuarios>usuarios = usuariosRepository.findByEmail(email);
 		if(usuarios.isPresent()) {
+			System.out.println("Password SHA:" + SHAUtil.createHash(contrasena));
 			if (usuarios.get().getContrasena().equals(contrasena)) {
 				res = true;
 			}
