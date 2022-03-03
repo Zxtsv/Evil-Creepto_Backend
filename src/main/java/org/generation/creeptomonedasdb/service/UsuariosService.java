@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.generation.creeptomonedasdb.models.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Service
 public class UsuariosService {
@@ -32,11 +33,14 @@ public class UsuariosService {
 		return usuariosRepository.findAll();
 	}//getUsuarios
 	
-	public void deleteUsuario(Long idUsuario) {
+	public void borrarUsuario(Long idUsuario) {
 		if(usuariosRepository.existsById(idUsuario)) {
 			usuariosRepository.deleteById(idUsuario);
-		}//if exists
+		}else {
+            throw new IllegalStateException("El usuario con el id " + idUsuario + " no existe");
+		}
 	}//deleteUsuario
+	
 	
 	public void addUsuario (Usuarios usuarios) {
 		Optional<Usuarios> usuarioByEmail = usuariosRepository.findByEmail(usuarios.getEmail());
@@ -46,7 +50,7 @@ public class UsuariosService {
 		usuariosRepository.save(usuarios);
 	}//addUsuario
 	
-	public void updateUsuario(Long idUsuario, String contrasenaActual, String contrasenaNueva) {
+	public void actualizarUsuario(Long idUsuario, String contrasenaActual, String contrasenaNueva) {
 		if(usuariosRepository.existsById(idUsuario)) {
 			Usuarios usuarios = usuariosRepository.getById(idUsuario);
 			if ((contrasenaNueva != null) && (contrasenaActual != null)) {

@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/api/usuarios")
+@RequestMapping(path="/api/usuarios/")
 @CrossOrigin(origins = "*")
 public class UsuariosController {
 	public final UsuariosService usuariosService;
@@ -35,18 +37,24 @@ public class UsuariosController {
 		return usuariosService.getUsuario(idUsuario);
 	}//getUsuario
 	
-	@DeleteMapping(path = {"idUsuario"})
-	public void deleteUsuario(@PathVariable("idUsuario")Long idUsuario) {
-		usuariosService.deleteUsuario(idUsuario);
-	}//delete
+	@DeleteMapping(path= "{idUsuario}")
+	public void borrarUsuario (@PathVariable("idUsuario")Long idUsuario) {
+		usuariosService.borrarUsuario(idUsuario);
+	}//borrarUsuario
 	
-	@PutMapping
-	public void updateUsuario(@PathVariable("idUsuario") Long idUsuario, 
+	@PutMapping(path = "{idUsuario}")
+	public void actualizarUsuario(@PathVariable("idUsuario") Long idUsuario, 
 			@RequestParam String contrasenaActual, 
 			@RequestParam String contrasenaNueva) {
-		usuariosService.updateUsuario(idUsuario, contrasenaActual, contrasenaNueva);
+		usuariosService.actualizarUsuario(idUsuario, contrasenaActual, contrasenaNueva);
 		
-	}
+	}//UpdateUsuario
+	
+	@PostMapping
+    public void addUsuario(@RequestBody Usuarios usuarios) {
+        usuariosService.addUsuario(usuarios);
+    }//agregarUsuario
+	
 	
 	
 
