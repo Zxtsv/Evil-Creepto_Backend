@@ -1,5 +1,6 @@
 package org.generation.creeptomonedasdb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.generation.creeptomonedasdb.models.Usuarios;
@@ -25,6 +26,49 @@ public class UsuariosService {
 			}
 		}//if
 		return res;
+	}//login
+	
+	public List<Usuarios> getUsuarios(){
+		return usuariosRepository.findAll();
+	}//getUsuarios
+	
+	public void deleteUsuario(Long idUsuario) {
+		if(usuariosRepository.existsById(idUsuario)) {
+			usuariosRepository.deleteById(idUsuario);
+		}//if exists
+	}//deleteUsuario
+	
+	public void addUsuario (Usuarios usuarios) {
+		Optional<Usuarios> usuarioByEmail = usuariosRepository.findByEmail(usuarios.getEmail());
+		if (usuarioByEmail.isPresent()) {
+			throw new IllegalStateException("El usuario con el correo: " + usuarios.getEmail() + "ya existe.");
+		}//if
+		usuariosRepository.save(usuarios);
+	}//addUsuario
+	
+	public void updateUsuario(Long idUsuario, String contrasenaActual, String contrasenaNueva) {
+		if(usuariosRepository.existsById(idUsuario)) {
+			Usuarios usuarios = usuariosRepository.getById(idUsuario);
+			if ((contrasenaNueva != null) && (contrasenaActual != null)) {
+				if ((usuarios.getContrasena().equals(contrasenaActual))&&
+						(! usuarios.getContrasena().equals(contrasenaNueva))) {
+					usuarios.setContrasena(contrasenaNueva);
+					usuariosRepository.save(usuarios);
+				}else {
+					throw new IllegalStateException("Contraseña incorrecta"); 
+				}//esle //if equals
+			}else {
+				throw new IllegalStateException("Contraseñas nulas");
+			}//else //!=null
+		}else {
+			throw new IllegalStateException("Usuario no encontrado " + idUsuario);
+		}//else //if existById
+	}//updateUsuario
+	
+	public Usuarios getUsuario(Long idUsuario) {
+		return usuariosRepository.findById(idUsuario).orElseThrow(
+				()-> new IllegalStateException("El usuario con el id " + idUsuario + " no existe"));
+				
 	}
-
+	
 }//clase UsuariosService
