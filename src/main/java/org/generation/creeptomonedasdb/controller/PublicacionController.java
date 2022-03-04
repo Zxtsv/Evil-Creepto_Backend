@@ -48,14 +48,4 @@ public class PublicacionController {
     public void addPublicacion(@RequestBody Publicacion pub){
         publicacionService.addPublicacion(pub);
     }
-
-    /*
-    @PutMapping(path = "{pubId}")
-    public void updatePublicacion(@PathVariable("pubId") Long pubId,
-    @RequestParam(required = false) String titulo,
-    @RequestParam(required = false) String cuerpo,
-    @RequestParam(required = false) Long categoryID){
-        publicacionService.updatePublicacion(pubId, titulo, cuerpo,categoryID);
-    }
-    */
 }

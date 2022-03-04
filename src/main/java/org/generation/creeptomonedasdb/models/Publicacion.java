@@ -13,14 +13,16 @@ public class Publicacion {
     private Long id_categoria;
     private String pregunta_titulo;
     private String pregunta_cuerpo;
-    public Publicacion(Long id_pregunta, Long id_categoria, String pregunta_titulo, String pregunta_cuerpo) {
-        super();
+    private String id_usuario;
+
+    public Publicacion(Long id_pregunta, Long id_categoria, String pregunta_titulo, String pregunta_cuerpo,
+            String id_usuario) {
         this.id_pregunta = id_pregunta;
         this.id_categoria = id_categoria;
         this.pregunta_titulo = pregunta_titulo;
         this.pregunta_cuerpo = pregunta_cuerpo;
+        this.id_usuario = id_usuario;
     }
-
     public Publicacion(){
         
     }
@@ -48,10 +50,19 @@ public class Publicacion {
     public void setPregunta_cuerpo(String pregunta_cuerpo) {
         this.pregunta_cuerpo = pregunta_cuerpo;
     }
+    public String getId_usuario() {
+        return id_usuario;
+    }
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
+    }
     @Override
     public String toString() {
-        return "Publicacion [id_categoria=" + id_categoria + ", id_pregunta=" + id_pregunta + ", pregunta_cuerpo="
-                + pregunta_cuerpo + ", pregunta_titulo=" + pregunta_titulo + "]";
+        return "Publicacion [" + "id_categoria=" + id_categoria
+                + ", id_pregunta=" + id_pregunta + ", id_usuario=" + id_usuario + ", pregunta_cuerpo=" + pregunta_cuerpo
+                + ", pregunta_titulo=" + pregunta_titulo + "]";
     }
+
+    
     
 }
