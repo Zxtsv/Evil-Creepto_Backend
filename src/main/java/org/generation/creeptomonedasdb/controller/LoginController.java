@@ -46,7 +46,7 @@ public class LoginController {
 	private String generateToken(String email) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR, 10);
-		return Jwts.builder().setSubject(email).claim("role", "user")
+		return Jwts.builder().setSubject(email).claim("role", "email")
 				.setIssuedAt(new Date()).setExpiration(calendar.getTime())
 				.signWith(SignatureAlgorithm.HS256, JwtFilter.secret).compact();
 	}// generateToken

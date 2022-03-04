@@ -23,4 +23,5 @@ public class CreeptomonedasdbApplication {
 //		//registrationBean.addUrlPatterns("/api/productos/");
 //		return registrationBean;
 //	} // jwtFilter
+
 }//class
