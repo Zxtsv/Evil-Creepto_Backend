@@ -32,12 +32,15 @@ public class LoginController {
 	}//constructor
 	
 	@PostMapping
-		public Token Login(@RequestBody Usuarios usuarios) throws ServletException {
+//		public Token Login(@RequestBody Usuarios usuarios) throws ServletException {
+		public String Login(@RequestBody Usuarios usuarios) {
+		String res = "Nombre de usuario o contraseña incorrectos";
 		if(usuariosService.login(usuarios.getEmail(), usuarios.getContrasena())) {
-			return new Token(generateToken(usuarios.getEmail()));
+//			return new Token(generateToken(usuarios.getEmail()));
+			res ="Accesso permitido";
 		}//if
-		throw new ServletException("Nombre de usuario o contraseÃ±a incorrectos");
-		
+//		throw new ServletException("Nombre de usuario o contraseña incorrectos");
+		return res;
 	}//login
 	
 	private String generateToken(String email) {

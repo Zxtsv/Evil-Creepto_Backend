@@ -7,7 +7,6 @@ import org.generation.creeptomonedasdb.models.Usuarios;
 import org.generation.creeptomonedasdb.utils.SHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Service
 public class UsuariosService {
@@ -24,7 +23,8 @@ public class UsuariosService {
 		Optional<Usuarios>usuarios = usuariosRepository.findByEmail(email);
 		if(usuarios.isPresent()) {
 			System.out.println("Password SHA:" + SHAUtil.createHash(contrasena));
-			if (usuarios.get().getContrasena().equals(contrasena)) {
+			if (SHAUtil.verifyHash(contrasena, usuarios.get().getContrasena())) {
+			//if (usuarios.get().getContrasena().equals(contrasena)) {
 				res = true;
 			}
 		}//if
@@ -49,6 +49,7 @@ public class UsuariosService {
 		if (usuarioByEmail.isPresent()) {
 			throw new IllegalStateException("El usuario con el correo: " + usuarios.getEmail() + "ya existe.");
 		}//if
+		usuarios.setContrasena(SHAUtil.createHash(usuarios.getContrasena()));
 		usuariosRepository.save(usuarios);
 	}//addUsuario
 	
@@ -56,10 +57,10 @@ public class UsuariosService {
 		if(usuariosRepository.existsById(idUsuario)) {
 			Usuarios usuarios = usuariosRepository.getById(idUsuario);
 			if ((contrasenaNueva != null) && (contrasenaActual != null)) {
-				if ((usuarios.getContrasena().equals(contrasenaActual))&&
-						(! usuarios.getContrasena().equals(contrasenaNueva))) {
-					usuarios.setContrasena(contrasenaNueva);
-					usuariosRepository.save(usuarios);
+				if ((SHAUtil.verifyHash(contrasenaActual, usuarios.getContrasena()))&&
+					(! SHAUtil.verifyHash(contrasenaNueva, usuarios.getContrasena()))) {
+						usuarios.setContrasena(SHAUtil.createHash(contrasenaNueva));
+						usuariosRepository.save(usuarios);
 				}else {
 					throw new IllegalStateException("Contraseña incorrecta"); 
 				}//esle //if equals
