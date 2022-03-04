@@ -27,7 +27,7 @@ public class JwtFilter extends GenericFilterBean{
             throws IOException, ServletException  {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+       // HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String authHeader = httpServletRequest.getHeader( "authorization" );
         System.out.println("getRequestURI(): " + httpServletRequest.getRequestURI());
         System.out.println("getMethod " + httpServletRequest.getMethod());
