@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.creeptomonedasdb.models.Usuarios;
+import org.generation.creeptomonedasdb.utils.SHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,9 @@ public class UsuariosService {
 		boolean res = false;
 		Optional<Usuarios>usuarios = usuariosRepository.findByEmail(email);
 		if(usuarios.isPresent()) {
-			if (usuarios.get().getContrasena().equals(contrasena)) {
+			System.out.println("Password SHA:" + SHAUtil.createHash(contrasena));
+			if (SHAUtil.verifyHash(contrasena, usuarios.get().getContrasena())) {
+			//if (usuarios.get().getContrasena().equals(contrasena)) {
 				res = true;
 			}
 		}//if
@@ -32,28 +35,32 @@ public class UsuariosService {
 		return usuariosRepository.findAll();
 	}//getUsuarios
 	
-	public void deleteUsuario(Long idUsuario) {
+	public void borrarUsuario(Long idUsuario) {
 		if(usuariosRepository.existsById(idUsuario)) {
 			usuariosRepository.deleteById(idUsuario);
-		}//if exists
+		}else {
+            throw new IllegalStateException("El usuario con el id " + idUsuario + " no existe");
+		}
 	}//deleteUsuario
+	
 	
 	public void addUsuario (Usuarios usuarios) {
 		Optional<Usuarios> usuarioByEmail = usuariosRepository.findByEmail(usuarios.getEmail());
 		if (usuarioByEmail.isPresent()) {
 			throw new IllegalStateException("El usuario con el correo: " + usuarios.getEmail() + "ya existe.");
 		}//if
+		usuarios.setContrasena(SHAUtil.createHash(usuarios.getContrasena()));
 		usuariosRepository.save(usuarios);
 	}//addUsuario
 	
-	public void updateUsuario(Long idUsuario, String contrasenaActual, String contrasenaNueva) {
+	public void actualizarUsuario(Long idUsuario, String contrasenaActual, String contrasenaNueva) {
 		if(usuariosRepository.existsById(idUsuario)) {
 			Usuarios usuarios = usuariosRepository.getById(idUsuario);
 			if ((contrasenaNueva != null) && (contrasenaActual != null)) {
-				if ((usuarios.getContrasena().equals(contrasenaActual))&&
-						(! usuarios.getContrasena().equals(contrasenaNueva))) {
-					usuarios.setContrasena(contrasenaNueva);
-					usuariosRepository.save(usuarios);
+				if ((SHAUtil.verifyHash(contrasenaActual, usuarios.getContrasena()))&&
+					(! SHAUtil.verifyHash(contrasenaNueva, usuarios.getContrasena()))) {
+						usuarios.setContrasena(SHAUtil.createHash(contrasenaNueva));
+						usuariosRepository.save(usuarios);
 				}else {
 					throw new IllegalStateException("Contraseña incorrecta"); 
 				}//esle //if equals

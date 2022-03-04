@@ -1,5 +1,13 @@
 package org.generation.creeptomonedasdb.controller;
 
+
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+
+import org.generation.creeptomonedasdb.jwt.config.JwtFilter;
+import org.generation.creeptomonedasdb.models.Token;
 import org.generation.creeptomonedasdb.models.Usuarios;
 import org.generation.creeptomonedasdb.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping(path="/api/login/")
@@ -21,13 +32,24 @@ public class LoginController {
 	}//constructor
 	
 	@PostMapping
-	public String Login (@RequestBody Usuarios usuarios) {
-		String res ="El email o la contraseÃ±a no coincide, intÃ©ntelo de nuevo";
+//		public Token Login(@RequestBody Usuarios usuarios) throws ServletException {
+		public String Login(@RequestBody Usuarios usuarios) {
+		String res = "Nombre de usuario o contraseña incorrectos";
 		if(usuariosService.login(usuarios.getEmail(), usuarios.getContrasena())) {
-			res = "ok";
+//			return new Token(generateToken(usuarios.getEmail()));
+			res ="Accesso permitido";
 		}//if
+//		throw new ServletException("Nombre de usuario o contraseña incorrectos");
 		return res;
 	}//login
+	
+	private String generateToken(String email) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.HOUR, 10);
+		return Jwts.builder().setSubject(email).claim("role", "email")
+				.setIssuedAt(new Date()).setExpiration(calendar.getTime())
+				.signWith(SignatureAlgorithm.HS256, JwtFilter.secret).compact();
+	}// generateToken
 	
 
 }//class LoginController
